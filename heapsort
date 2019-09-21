@@ -1,1 +1,54 @@
 
+#include <stdio.h>
+void heapsort(int[]);
+void heapify(int[],int);
+void build(int[]);
+void swap(int*,int*);
+int n;
+int main(){
+    int i,a[20],x;
+    printf("Enter the no. of elements in array\n");
+    scanf("%d",&n);x=n;
+    printf("Enter %d elements\n",n);
+    for(i=1;i<=n;i++)
+    scanf("%d",&a[i]);
+    heapsort(a);
+    printf("Sorted array is :\n");
+    printf("#############################################################\n");
+    for(i=1;i<=x;i++)
+    printf("%d ",a[i]);
+    printf("\n#############################################################\n");
+    return 0;
+}
+void heapsort(int a[]){
+    int i;
+    build(a);
+    for(i=n;i>=1;i--){
+        swap(&a[i],&a[1]);
+        n--;
+        heapify(a,1);
+    }
+}
+void build(int a[]){
+    int i;
+    for(i=n/2;i>=1;i--)
+    heapify(a,i);
+}
+void heapify(int a[],int i){
+    int left=2*i,right=2*i+1,max;
+    if(left<=n && a[left]>a[i])
+    max=left;
+    else
+    max=i;
+    if(right<=n && a[right]>a[max])
+    max=right;
+    if(max!=i){
+        swap(&a[max],&a[i]);
+        heapify(a,max);
+    }
+}
+void swap(int *a,int *b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
